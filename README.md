@@ -1,54 +1,94 @@
-# lame-merge-sort-py
-Perform a Merge sort on a list: 
-1. listsplit(inlist)
-  Purpose: Splits the input list recursively into smaller sublists until each sublist contains one or no elements, then merges them back in sorted order using the mergelist() function.
- Process:
-  Divides the list into two halves (a and b).
-  Recursively calls itself on both halves.
-  Merges the sorted halves using mergelist().
-2. mergelist(a, b)
-  Purpose: Merges two sorted lists (a and b) into a single sorted list.
- Process:
-  Uses a while loop to compare and pop elements from the lists.
-  Adds smaller elements to the resulting list sortl.
-  Handles duplicate elements by appending both.
-  Extends the remaining elements of the longer list (if any) to the sorted list.
-3. cleanlist(inlist)
-  Purpose: Filters out non-numeric elements (like strings or objects) from the input list.
- Process:
-  Iterates through the list and checks each element's type.
-  Removes non-numeric elements (anything not int or float) and collects them in a separate list junk.
- Output:
-  Returns a list: the cleaned list and the list of junk items.
-4. mergesort(inlist, order=1, clean=1)
-  Purpose: The main function that performs the sorting.
- Parameters:
-  inlist: The list to be sorted.
-  order: Determines the sorting order:
-    1 (default): Ascending.
-    2: Descending.
-  clean: Determines whether to exclude junk:
-    1 (default): Removes non-numeric elements.
-    0: Retains non-numeric elements and appends them to the result.
-Process:
-  Cleans the list using cleanlist().
-  Sorts the numeric elements using listsplit().
-  Reverses the sorted list if order=2.
-  Optionally adds back the junk elements if clean=0.
-Observations
- 
-Strengths:
+# 🧠 Lame Merge Sort (Python)
 
-  Implements a recursive merge sort effectively.
-  Handles non-numeric elements gracefully with the cleanlist function.
-  Allows flexibility with sorting order and inclusion of junk.
- 
-Weaknesses:
+A Python implementation of Merge Sort with additional features like data cleaning and sorting order control.
 
-  Inefficient pop(0) calls:
-  The use of pop(0) in mergelist is inefficient because it shifts all elements in the list, making it O(n) for each operation.
-  This can significantly slow down the algorithm for large lists.
-  cleanlist modification in-place:
-  Directly modifies the input list (inlist), which may not be ideal. A copy should be used to avoid side effects.
-Redundant conditions in mergelist:
-  The elif conditions for equal lengths are unnecessary since they can be combined into a single else block
+---
+
+## ⚙️ Functions
+
+### 1. `listsplit(inlist)`
+**Purpose:**  
+Recursively splits the input list into smaller sublists and merges them back in sorted order.
+
+**Process:**  
+- Divides the list into two halves `a` and `b`.
+- Recursively sorts both halves using `listsplit()`.
+- Merges them with `mergelist()`.
+
+---
+
+### 2. `mergelist(a, b)`
+**Purpose:**  
+Merges two sorted lists into a single sorted list.
+
+**Process:**  
+- Compares and pops the smallest elements from each list using a `while` loop.
+- Handles duplicates by appending both.
+- Appends any remaining elements from either list to the result.
+
+---
+
+### 3. `cleanlist(inlist)`
+**Purpose:**  
+Removes non-numeric elements from the input list.
+
+**Process:**  
+- Iterates through the list.
+- Filters out non-`int` or `float` items.
+- Returns two lists:
+  - ✅ Cleaned numeric list.
+  - 🚫 List of junk items.
+
+---
+
+### 4. `mergesort(inlist, order=1, clean=1)`
+**Purpose:**  
+Main function to perform the merge sort.
+
+**Parameters:**
+- `inlist`: List to be sorted.
+- `order`: Sorting order:
+  - `1` (default): Ascending.
+  - `2`: Descending.
+- `clean`: Handle non-numeric elements:
+  - `1` (default): Remove them.
+  - `0`: Keep and append them after sorting.
+
+**Process:**
+- Cleans the list using `cleanlist()`.
+- Sorts the list via `listsplit()`.
+- Reverses it if `order=2`.
+- Adds back junk if `clean=0`.
+
+---
+
+## ✅ Strengths
+
+- 🔁 Efficient recursive merge sort.
+- 🧹 Handles non-numeric entries cleanly.
+- 🔄 Flexible sorting order and junk inclusion.
+
+---
+
+## ⚠️ Weaknesses
+
+- ❌ **Inefficient `pop(0)`**:  
+  - Causes O(n) operations and performance issues on large lists.
+
+- ❌ **Modifies input list in-place**:  
+  - Side effects from `cleanlist()`. Should use a copy.
+
+- ❌ **Redundant conditions in `mergelist()`**:  
+  - Some branches can be simplified into a single `else` block.
+
+---
+
+## ✨ Suggestions for Improvement
+
+- Replace `pop(0)` with index-based access or `collections.deque` for efficiency.
+- Use a copy of `inlist` in `cleanlist()` to avoid mutation.
+- Refactor `mergelist()` logic for clarity and performance.
+
+---
+
+Happy Sorting!
